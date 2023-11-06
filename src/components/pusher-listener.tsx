@@ -10,7 +10,6 @@ type Message = {
 export default function PusherListener() {
   const [messages, setMessages] = useState<string[]>([])
   const updateMessages = (message: string) => {
-    console.log(message)
     setMessages((messages) => [...messages, message])
   }
   const { connected } = useNotificationListener(Channels.TRACKING, {

@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { TrackerClient } from "./track/client";
+import { QueryClient } from "@tanstack/react-query";
 
 export function cn(...args: ClassValue[]) {
   return twMerge(clsx(...args));
@@ -28,3 +30,10 @@ export function setCookie(cname: string, cvalue: string, exdays: number) {
   let expires = "expires=" + d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
+
+export const trackerClient = new TrackerClient({
+  url: "http://localhost:3000/"
+});
+
+
+export const queryClient = new QueryClient()

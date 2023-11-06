@@ -1,6 +1,5 @@
 import { Channel } from "pusher-js"
 import { useEffect, useState } from "react"
-import { pusherClient } from "../pusher"
 
 export const useNotificationListener = <T>(room: string, callbacks: Record<string, (data: T) => void>) => {
   const [channel, setChannel] = useState<Channel>()
@@ -21,3 +20,8 @@ export const useNotificationListener = <T>(room: string, callbacks: Record<strin
 
   return { connected }
 }
+
+import PusherClient from "pusher-js"
+export const pusherClient = new PusherClient(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
+  cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+})

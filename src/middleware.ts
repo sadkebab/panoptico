@@ -1,11 +1,20 @@
-import { type NextRequest } from 'next/server'
-import { userAgent } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { nanoid } from 'nanoid'
+import track from './lib/track/server'
+import { notify } from './lib/notify/server'
 
 export async function middleware(request: NextRequest) {
-  const ip = request.ip
-  const geo = request.geo
-  const ua = userAgent(request)
-  console.log(ip, geo, ua)
+  track('visit')
+  const response = NextResponse.next()
+
+  const identifier = request.cookies.get('uqId')
+  if (!identifier?.value) {
+    const newIqId = nanoid(16)
+    track('unique-user')
+    response.cookies.set('uqId', newIqId)
+  }
+
+  return response
 }
 
 export const config = {

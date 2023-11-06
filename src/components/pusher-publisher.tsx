@@ -1,9 +1,10 @@
 "use client"
 
-import { track } from "@/lib/track/client"
+import { trackerClient } from "@/lib/utils"
 
 export default function PusherPublisher() {
-  return <button onClick={() => track("cock", {
+
+  return <button onClick={() => trackerClient.send("cock", {
     balls: "above"
   })}>
     Publish event
