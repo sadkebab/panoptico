@@ -25,7 +25,8 @@ export function Combobox({
   searchPlaceholder,
   options,
   onValueChange,
-  exactMatch
+  exactMatch,
+  className,
 }: {
   defaultLabel?: string,
   defaultValue?: string,
@@ -35,7 +36,8 @@ export function Combobox({
     label: string
   }[],
   onValueChange: (value: string) => void,
-  exactMatch?: boolean
+  exactMatch?: boolean,
+  className?: string
 }) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState(defaultValue)
@@ -43,7 +45,7 @@ export function Combobox({
   const filterProps = React.useMemo(() => exactMatch ? {
     filter: (value: string, search: string) => value.includes(search) ? 1 : 0
   } : {}, [exactMatch])
-  
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -51,7 +53,7 @@ export function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="justify-between flex"
+          className={cn("justify-between flex", className)}
         >
           <div className="flex gap-1 items-center">
             <Globe2 className="h-4 w-4 opacity-50" />

@@ -6,7 +6,7 @@ import { Card, CardContent, CardTitle } from "@/lib/ui/card";
 import { Separator } from "@/lib/ui/separator";
 import { useQuery } from "@tanstack/react-query"
 import { useContext } from "react";
-import { BarChart, Bar, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Tooltip, ResponsiveContainer, YAxis } from 'recharts';
 import { TimezoneContext } from "./timezone";
 
 export function RangeChart({ range, event, title, color }: { range: DataRange, event: string, title: string, color?: string }) {
@@ -34,10 +34,11 @@ export function RangeChart({ range, event, title, color }: { range: DataRange, e
         {title}
       </CardTitle>
       <CardContent className="flex flex-row w-full items-center p-4">
-        <div className="flex-1 h-60 md:h-44">
+        <div className="flex-1 h-44">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart width={200} height={100} data={normalizedData}>
               <Bar dataKey="value" fill={color || "var(--chart)"} radius={4} />
+              {/* <YAxis width={16} fontSize={8} /> */}
               <Tooltip cursor={{ fill: 'hsl(var(--muted-foreground))', fillOpacity: .5, radius: 4 }} content={<CustomTooltip data={normalizedData} />} />
             </BarChart>
           </ResponsiveContainer>
@@ -85,7 +86,7 @@ function ChartSkeleton({
         {title}
       </CardTitle>
       <CardContent className="flex flex-row w-full items-center p-4">
-        <div className="flex-1 h-60 md:h-44 p-4">
+        <div className="flex-1 h-44">
           <div className="bg-muted animate-pulse w-full h-full rounded-lg" style={{
             backgroundColor: color,
             opacity: .1,

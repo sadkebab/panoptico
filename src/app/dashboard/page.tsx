@@ -20,24 +20,22 @@ export default async function Dashboard({ searchParams }: { searchParams: { rang
   return (
     <div className="p-8">
       <TimezoneWrapper timeZone={timeZone} >
-        <Card className="p-2 flex flex-row justify-between">
-          <ul className="flex flex-row gap-1">
+        <Card className="p-2 flex flex-row justify-between flex-wrap gap-1">
+          <ul className="flex flex-row gap-1 w-full md:w-fit">
             <RangeItem range="hour" active={range == "hour"}>Last hour</RangeItem>
-            <RangeItem range="day" active={range == "day"}>Last 24 hours</RangeItem>
+            <RangeItem range="day" active={range == "day"}>Last day</RangeItem>
             <RangeItem range="week" active={range == "week"}>Last week</RangeItem>
             <RangeItem range="month" active={range == "month"}>Last month</RangeItem>
           </ul>
-          <TimezoneCombobox />
+          <TimezoneCombobox className="w-full md:w-fit"/>
         </Card>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-8">
           <QueryWrapper>
-            <Suspense fallback="loading...">
-              <RangeChart event={"visit"} range={range} title="Page Views" color="#c084fc"/>
-              <RangeChart event={"unique-user"} range={range} title="New Viewers" color="#a78bfa"/>
-              <RangeChart event={"unique-user"} range={range} title="User Login" color="#818cf8"/>
-              <RangeChart event={"unique-user"} range={range} title="User Registration" color="#60a5fa"/>
-            </Suspense>
+            <RangeChart event={"visit"} range={range} title="Page Views" color="#c084fc" />
+            <RangeChart event={"unique-user"} range={range} title="New Viewers" color="#a78bfa" />
+            <RangeChart event={"unique-user"} range={range} title="User Login" color="#818cf8" />
+            <RangeChart event={"unique-user"} range={range} title="User Registration" color="#60a5fa" />
           </QueryWrapper>
         </div>
       </TimezoneWrapper>
@@ -47,8 +45,8 @@ export default async function Dashboard({ searchParams }: { searchParams: { rang
 
 function RangeItem({ children, range, active }: { children: React.ReactNode, range: DataRange, active?: boolean }) {
   return (
-    <Link href={`/dashboard?range=${range}`}>
-      <li className={cn("border border-border flex flex-row items-center p-2 gap-1 rounded active:shadow-inner active:scale-95", active && "border-muted-foreground")}>
+    <Link href={`/dashboard?range=${range}`} className="flex-1 md:flex-none h-full">
+      <li className={cn("border border-border flex flex-row items-center p-2 gap-1 h-full rounded active:shadow-inner active:scale-95", active && "border-muted-foreground")}>
         {children}
       </li>
     </Link>
