@@ -30,11 +30,13 @@ export default async function Dashboard({ searchParams }: { searchParams: { rang
           <TimezoneCombobox />
         </Card>
 
-        <div className="grid grid-cols-3 gap-6 pt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-8">
           <QueryWrapper>
             <Suspense fallback="loading...">
-              <RangeChart event={"visit"} range={range} title="Page Views" />
-              <RangeChart event={"unique-user"} range={range} title="New Viewers" />
+              <RangeChart event={"visit"} range={range} title="Page Views" color="#c084fc"/>
+              <RangeChart event={"unique-user"} range={range} title="New Viewers" color="#a78bfa"/>
+              <RangeChart event={"unique-user"} range={range} title="User Login" color="#818cf8"/>
+              <RangeChart event={"unique-user"} range={range} title="User Registration" color="#60a5fa"/>
             </Suspense>
           </QueryWrapper>
         </div>

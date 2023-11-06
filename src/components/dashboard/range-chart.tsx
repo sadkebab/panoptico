@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { BarChart, Bar, Tooltip, ResponsiveContainer } from 'recharts';
 import { TimezoneContext } from "./timezone";
 
-export function RangeChart({ range, event, title }: { range: DataRange, event: string, title: string }) {
+export function RangeChart({ range, event, title, color }: { range: DataRange, event: string, title: string, color?: string }) {
   const { isPending, error, data } = useQuery({
     queryKey: ['chart', range, event],
     queryFn: () =>
@@ -21,22 +21,24 @@ export function RangeChart({ range, event, title }: { range: DataRange, event: s
   const { timezone } = useContext(TimezoneContext)
 
 
-  if (isPending) return <ChartSkeleton title={title} />
+  if (isPending) return <ChartSkeleton title={title} color={color} />
 
   if (error) return 'An error has occurred: ' + error.message
 
   const normalizedData = chartify(data.groups, range, timezone)
-  
+
   return (
     <Card className="">
-      <CardTitle className="p-4 border-b border-border">{title}</CardTitle>
+      <CardTitle className="p-2 border-b border-border text-xl flex gap-1">
+        <Badge className={``} style={{ backgroundColor: color }}>{data.count}</Badge>
+        {title}
+      </CardTitle>
       <CardContent className="flex flex-row w-full items-center p-4">
-        <Badge className="text-base">{data.count}</Badge>
-        <div className="flex-1 h-60">
+        <div className="flex-1 h-60 md:h-44">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart width={200} height={100} data={normalizedData}>
-              <Bar dataKey="value" fill="var(--chart)" radius={4} />
-              <Tooltip cursor={{ fill: 'hsl(var(--muted-foreground))', fillOpacity: .5, radius: 4}} content={<CustomTooltip data={normalizedData} />} />
+              <Bar dataKey="value" fill={color || "var(--chart)"} radius={4} />
+              <Tooltip cursor={{ fill: 'hsl(var(--muted-foreground))', fillOpacity: .5, radius: 4 }} content={<CustomTooltip data={normalizedData} />} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -65,14 +67,29 @@ const CustomTooltip = ({
   return null;
 };
 
-function ChartSkeleton({ title }: { title: string }) {
+function ChartSkeleton({
+  title,
+  color
+}: {
+  title: string,
+  color?: string
+}) {
   return (
     <Card className="">
-      <CardTitle className="p-4 border-b border-border">{title}</CardTitle>
+      <CardTitle className="p-2 border-b border-border text-xl flex gap-1">
+        <Badge className="text-muted animation-pulse bg-muted animate-pulse" style={{
+          backgroundColor: color,
+          opacity: .1,
+          color: color
+        }}>?</Badge>
+        {title}
+      </CardTitle>
       <CardContent className="flex flex-row w-full items-center p-4">
-        <Badge className="text-base text-muted animation-pulse bg-muted animate-pulse">??</Badge>
-        <div className="flex-1 h-60 p-4">
-          <div className="bg-muted animate-pulse w-full h-full rounded-lg"></div>
+        <div className="flex-1 h-60 md:h-44 p-4">
+          <div className="bg-muted animate-pulse w-full h-full rounded-lg" style={{
+            backgroundColor: color,
+            opacity: .1,
+          }}></div>
         </div>
       </CardContent>
     </Card>
