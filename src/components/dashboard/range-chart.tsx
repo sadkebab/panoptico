@@ -29,8 +29,8 @@ export function RangeChart({ range, event, title, color }: { range: DataRange, e
 
   return (
     <Card className="">
-      <CardTitle className="p-2 border-b border-border text-xl flex gap-1">
-        <Badge className={``} style={{ backgroundColor: color }}>{data.count}</Badge>
+      <CardTitle className="py-2 px-4 border-b border-border text-xl flex gap-1">
+        <Badge style={{ backgroundColor: color }}>{data.count}</Badge>
         {title}
       </CardTitle>
       <CardContent className="flex flex-row w-full items-center p-4">
@@ -77,7 +77,7 @@ function ChartSkeleton({
 }) {
   return (
     <Card className="">
-      <CardTitle className="p-2 border-b border-border text-xl flex gap-1">
+      <CardTitle className="px-4 py-2 border-b border-border text-xl flex gap-1">
         <Badge className="text-muted animation-pulse bg-muted animate-pulse" style={{
           backgroundColor: color,
           opacity: .1,
