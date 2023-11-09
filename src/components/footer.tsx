@@ -10,10 +10,10 @@ export default function Footer({ className }: { className?: string }) {
       )}
     >
       <p>
-        ©
+        ©{" "}
         <a href="https://albertoharka.it/" target="_blank">
           Alberto Harka
-        </a>
+        </a>{" "}
         2023
       </p>
     </footer>
