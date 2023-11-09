@@ -21,7 +21,7 @@ export default function Home() {
             1. Open the{" "}
             <Link
               href={"/playground"}
-              className="font-bold text-muted-foreground text-cyan-500"
+              className="font-bold text-muted-foreground text-cyan-600"
               target="_blank"
             >
               playground
