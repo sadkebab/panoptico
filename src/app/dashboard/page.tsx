@@ -1,26 +1,103 @@
 import { DataRange, parseRange } from "@/_data/events";
 import { tz as timeZones } from "@/_data/timezones";
+import ChartSkeleton from "@/components/dashboard/chart-skeleton";
+import { TableSkeleton } from "@/components/dashboard/table-skeleton";
 import { DashboardContext } from "@/components/dashboard/timezone";
 import { Button } from "@/lib/ui/button";
 import { Card } from "@/lib/ui/card";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
+import dynamic, { DynamicOptionsLoadingProps } from "next/dynamic";
 import { cookies } from "next/headers";
+import { Suspense } from "react";
 
-const RangeChart = dynamic(() => import("@/components/dashboard/range-chart"));
+const VisitChart = dynamic(() => import("@/components/dashboard/range-chart"), {
+  loading: () => <ChartSkeleton title="Visit" color="#9333ea" />,
+  ssr: false,
+});
+
+const NewViewersChart = dynamic(
+  () => import("@/components/dashboard/range-chart"),
+  {
+    loading: () => <ChartSkeleton title="New Viewers" color="#8b5cf6" />,
+    ssr: false,
+  },
+);
+
+const UserLoginChart = dynamic(
+  () => import("@/components/dashboard/range-chart"),
+  {
+    loading: () => <ChartSkeleton title="User Login" color="#6366f1" />,
+    ssr: false,
+  },
+);
+
+const UserRegistrationChart = dynamic(
+  () => import("@/components/dashboard/range-chart"),
+  {
+    loading: () => <ChartSkeleton title="User Registration" color="#3b82f6" />,
+    ssr: false,
+  },
+);
+
+const SearchesChart = dynamic(
+  () => import("@/components/dashboard/range-chart"),
+  {
+    loading: () => <ChartSkeleton title="Searches" color="#0ea5e9" />,
+    ssr: false,
+  },
+);
+
+const OrdersChart = dynamic(
+  () => import("@/components/dashboard/range-chart"),
+  {
+    loading: () => <ChartSkeleton title="Orders" color="#06b6d4" />,
+    ssr: false,
+  },
+);
+
+const PurchasedProductsChart = dynamic(
+  () => import("@/components/dashboard/product-chart"),
+  {
+    loading: () => <ChartSkeleton title="Purchased Products" color="#14b8a6" />,
+    ssr: false,
+  },
+);
+
+const RevenueChart = dynamic(
+  () => import("@/components/dashboard/total-chart"),
+  {
+    loading: () => <ChartSkeleton title="Revenue" color="#10b981" />,
+    ssr: false,
+  },
+);
+
 const TimezoneCombobox = dynamic(
   () => import("@/components/dashboard/timezone-combobox"),
+  {
+    loading: () => <div className="h-10 w-full md:w-52 bg-muted rounded animate-pulse" />,
+    ssr: false,
+  },
 );
-const TotalChart = dynamic(() => import("@/components/dashboard/total-chart"));
-const ProductChart = dynamic(
-  () => import("@/components/dashboard/product-chart"),
-);
+
 const TopSearchTable = dynamic(
   () => import("@/components/dashboard/top-search-table"),
+  {
+    loading: () => (
+      <TableSkeleton title="Most frequent searches" term="Search" />
+    ),
+    ssr: false,
+  },
 );
+
 const TopProductTable = dynamic(
   () => import("@/components/dashboard/top-product-table"),
+  {
+    loading: () => (
+      <TableSkeleton title="Most purchased products" term="Product Purchase" />
+    ),
+    ssr: false,
+  },
 );
 
 export const metadata: Metadata = {
@@ -54,49 +131,49 @@ export default async function Dashboard() {
         </Card>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <RangeChart
+          <VisitChart
             event={"visit"}
             range={range}
             title="Page Views"
             color="#9333ea"
           />
-          <RangeChart
+          <NewViewersChart
             event={"unique-user"}
             range={range}
             title="New Viewers"
             color="#8b5cf6"
           />
-          <RangeChart
+          <UserLoginChart
             event={"login"}
             range={range}
             title="User Login"
             color="#6366f1"
           />
-          <RangeChart
+          <UserRegistrationChart
             event={"registration"}
             range={range}
             title="User Registration"
             color="#3b82f6"
           />
-          <RangeChart
+          <SearchesChart
             event={"search"}
             range={range}
             title="Searches"
             color="#0ea5e9"
           />
-          <RangeChart
+          <OrdersChart
             event={"order"}
             range={range}
             title="Orders"
             color="#06b6d4"
           />
-          <ProductChart
+          <PurchasedProductsChart
             event={"product-purchase"}
             range={range}
             title="Purchased Products"
             color="#14b8a6"
           />
-          <TotalChart
+          <RevenueChart
             event={"order"}
             range={range}
             title="Revenue"
@@ -150,5 +227,13 @@ function RangeItem({
         </Button>
       </form>
     </li>
+  );
+}
+
+function GhostChart() {
+  return (
+    <Card className="w-full p-4">
+      <div className="w-full h-[14rem] bg-muted animate-pulse"></div>
+    </Card>
   );
 }

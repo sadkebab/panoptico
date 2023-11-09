@@ -43,7 +43,7 @@ export function Combobox({
   const [value, setValue] = React.useState(defaultValue)
 
   const filterProps = React.useMemo(() => exactMatch ? {
-    filter: (value: string, search: string) => value.includes(search) ? 1 : 0
+    filter: (value: string, search: string) => value.includes(search.toLowerCase()) ? 1 : 0
   } : {}, [exactMatch])
 
   return (
@@ -67,7 +67,7 @@ export function Combobox({
       <PopoverContent className=" p-0">
         <Command {...filterProps}>
           <CommandInput placeholder={searchPlaceholder} />
-          <CommandEmpty>No framework found.</CommandEmpty>
+          <CommandEmpty>Timezone not found.</CommandEmpty>
           <CommandGroup>
             {options.map((option) => (
               <CommandItem

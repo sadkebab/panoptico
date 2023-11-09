@@ -17,11 +17,11 @@ export default function Home() {
       <div className="flex flex-col p-8 md:p-24 gap-2 items-center">
         <h2 className="text-3xl font-bold">How to use</h2>
         <div className="text-lg">
-          <p>
+          <p className="">
             1. Open the{" "}
             <Link
               href={"/playground"}
-              className="font-bold text-muted-foreground text-cyan-600"
+              className="font-bold text-cyan-500"
               target="_blank"
             >
               playground
@@ -32,7 +32,7 @@ export default function Home() {
             3. Open the{" "}
             <Link
               href={"/dashboard"}
-              className="font-bold text-muted-foreground text-teal-500"
+              className="font-bold text-teal-500"
               target="_blank"
             >
               dashboard

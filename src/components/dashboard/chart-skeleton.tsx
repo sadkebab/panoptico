@@ -12,17 +12,17 @@ export default function ChartSkeleton({
 }) {
   return (
     <Card className={className}>
-      <CardTitle className="px-4 py-2 border-b border-border text-xl flex gap-1">
-        <Badge
-          className="text-muted animation-pulse bg-muted animate-pulse"
+      <CardTitle className="px-4 py-2 border-b border-border text-lg flex gap-1">
+        <div
+          className="text-muted animation-pulse bg-muted w-7 h-7 animate-pulse rounded-full"
           style={{
             backgroundColor: color,
-            opacity: 0.1,
+            opacity: .5,
             color: color,
           }}
         >
-          ?
-        </Badge>
+          
+        </div>
         {title}
       </CardTitle>
       <CardContent className="flex flex-row w-full items-center p-4">

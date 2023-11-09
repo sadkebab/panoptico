@@ -89,8 +89,6 @@ function parse(data: EventList<{ text: string }>["rows"]) {
     {} as Record<string, number>,
   );
 
-  console.log(data, map);
-
   return Object.keys(map)
     .sort((a, b) => map[b] - map[a])
     .map((k) => {
