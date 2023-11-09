@@ -592,21 +592,28 @@ export const tz = [
   "Universal",
   "W-SU",
   "WET",
-  "Zulu"
-]
+  "Zulu",
+];
 
 function main() {
   const tzs = tz.map((t) => ({
     value: t.toLowerCase(),
-    label: `${t.replaceAll("_"," ")} (UTC${getOffset(t) >= 0 ? '+' : ''}${getOffset(t) / 60})`
-  }))
-  fs.writeFile("./src/_data/timezones.ts", `export const tz = [\n${tzs.map(i => `\t{\n\t\tvalue: "${i.value}",\n\t\tlabel: "${i.label}"\n\t}`).join(",\n")}\n]`);
+    label: `${t.replaceAll("_", " ")} (UTC${getOffset(t) >= 0 ? "+" : ""}${
+      getOffset(t) / 60
+    })`,
+  }));
+  fs.writeFile(
+    "./src/_data/timezones.ts",
+    `export const tz = [\n${tzs
+      .map((i) => `\t{\n\t\tvalue: "${i.value}",\n\t\tlabel: "${i.label}"\n\t}`)
+      .join(",\n")}\n]`,
+  );
 }
 
-const getOffset = (timeZone = 'UTC', date = new Date()) => {
-  const utcDate = new Date(date.toLocaleString('en-US', { timeZone: 'utc' }));
-  const tzDate = new Date(date.toLocaleString('en-US', { timeZone }));
+const getOffset = (timeZone = "UTC", date = new Date()) => {
+  const utcDate = new Date(date.toLocaleString("en-US", { timeZone: "utc" }));
+  const tzDate = new Date(date.toLocaleString("en-US", { timeZone }));
   return (tzDate.getTime() - utcDate.getTime()) / 6e4;
-}
+};
 
-main()
+main();

@@ -1,26 +1,27 @@
-"use client"
+"use client";
 
-import { Combobox } from "@/lib/ui/combobox"
-import { useContext, useMemo } from "react"
-import { TimezoneContext } from "./timezone"
-import { tz } from "@/_data/timezones"
+import { Combobox } from "@/lib/ui/combobox";
+import { useContext } from "react";
+import { TimezoneContext } from "./timezone";
+import { Timezone } from "@/_data/timezones";
 
 export default function TimezoneCombobox({
-  className
+  className,
+  zones,
 }: {
-  className?: string
+  className?: string;
+  zones: Timezone[];
 }) {
-  const { setTimezone, timezone } = useContext(TimezoneContext)
+  const { setTimezone, timezone } = useContext(TimezoneContext);
 
   return (
     <Combobox
       className={className}
-      options={tz}
+      options={zones}
       searchPlaceholder="Select a timezone"
       onValueChange={(value) => setTimezone(value)}
       defaultValue={timezone}
       exactMatch
     />
-  )
+  );
 }
-

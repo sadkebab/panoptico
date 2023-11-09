@@ -13,18 +13,16 @@ import ChartSkeleton from "./chart-skeleton";
 import { ChartTooltip } from "./chart-tooltip";
 import { useGroupedEventQuery } from "./use-event-query";
 
-export default function RangeChart({
+export default function ProductChart({
   range,
   event,
   title,
-  color,
-  className,
+  color
 }: {
   range: DataRange,
   event: string,
   title: string,
-  color?: string,
-  className?: string
+  color?: string
 }) {
   const { isPending, error, data, queryKey } = useGroupedEventQuery(event, range)
   const { timezone } = useContext(TimezoneContext)
@@ -38,15 +36,15 @@ export default function RangeChart({
     console.log("Listening for event updates:", event)
   }, [connected, event])
 
-  if (isPending) return <ChartSkeleton className={className} title={title} color={color} />
+  if (isPending) return <ChartSkeleton title={title} color={color} />
   if (error) return 'An error has occurred: ' + error.message
 
-  const parsedData = parse(data.groups, range, timezone)
+  const { count, parsedData } = parse(data.groups, range, timezone)
 
   return (
-    <Card className={className}>
+    <Card className="">
       <CardTitle className="py-2 px-4 border-b border-border text-lg flex gap-1">
-        <Badge className="text-white" style={{ backgroundColor: color }}>{data.count}</Badge>
+        <Badge className="text-white" style={{ backgroundColor: color }}>{count}</Badge>
         {title}
       </CardTitle>
       <CardContent className="flex flex-row w-full items-center p-4">
@@ -70,14 +68,20 @@ export default function RangeChart({
   )
 }
 
-const parse = (groups: GroupedData<any>["groups"], range: DataRange, timezone: string) => {
-  return Object.keys(groups).map((k) => {
+function parse(groups: GroupedData<any>["groups"], range: DataRange, timezone: string) {
+  const parsedData = Object.keys(groups).map((k) => {
     const d = groups[k]
     const date = new Date(parseInt(k))
+    console.log(d)
     return {
       name: dateLabelByRange(date, range, timezone),
-      value: d.length,
+      value: d.reduce((p, n: any) => p + n.data.quantity, 0),
     }
   }).reverse()
+  const count = parsedData.reduce((p, n) => p + n.value, 0)
+  return {
+    parsedData,
+    count
+  }
 }
 

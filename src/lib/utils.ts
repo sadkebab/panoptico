@@ -3,6 +3,7 @@ import { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { TrackerClient } from "./track/client";
 import { QueryClient } from "@tanstack/react-query";
+import { DataRange } from "@/_data/events";
 
 export function cn(...args: ClassValue[]) {
   return twMerge(clsx(...args));
@@ -32,8 +33,47 @@ export function setCookie(cname: string, cvalue: string, exdays: number) {
 }
 
 export const trackerClient = new TrackerClient({
-  url: "http://localhost:3000/"
+  url: process.env.NEXT_PUBLIC_TRACKER_URL!,
 });
 
 
 export const queryClient = new QueryClient()
+
+export const dateLabelByRange = (date: Date, range: DataRange, timeZone: string) => {
+
+  if (range === "hour" || range === "day") {
+    const hours = parseInt(date.toLocaleString("it-IT", {
+      timeZone: timeZone,
+      hour: "numeric",
+    })).toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    })
+    const minutes = parseInt(date.toLocaleString("it-IT", {
+      timeZone: "UTC",
+      minute: "numeric",
+    })).toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    })
+    return `${hours}:${minutes}`
+  }
+
+  const day = parseInt(date.toLocaleString("it-IT", {
+    timeZone: "UTC",
+    day: "numeric",
+  })).toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false,
+  })
+
+  const month = parseInt(date.toLocaleString("it-IT", {
+    timeZone: "UTC",
+    month: "numeric",
+  })).toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false,
+  })
+
+  return `${day}/${month}`
+}

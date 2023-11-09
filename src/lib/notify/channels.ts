@@ -1,3 +1,3 @@
 export const Channels = {
-  TRACKING: "tracking"
-}
+  TRACKING: "tracking",
+};
