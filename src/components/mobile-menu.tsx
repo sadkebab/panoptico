@@ -33,7 +33,7 @@ export default function MobileMenu({
         <MenubarTrigger>{icon}</MenubarTrigger>
         <MenubarContent>
           {config.map(({href, title, icon}, i) => (
-            <Link href={href}>
+            <Link href={href} key={href}>
               <MenubarItem key={i}>
                   <div className="flex flex-row gap-2 p-2">
                   <div>{icon}</div>

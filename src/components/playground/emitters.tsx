@@ -127,6 +127,7 @@ export function OrderEventEmitter({
                 <div className="w-full h-[300px] md:h-[200px] md:w-[200px] relative rounded overflow-hidden">
                   <div className="absolute h-full w-full p-1 bg-muted animate-pulse"></div>
                   <Image
+                    priority={true}
                     className="absolute z-10 h-full w-full object-cover"
                     src={img}
                     alt={title}
