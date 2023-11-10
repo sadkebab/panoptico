@@ -1,8 +1,7 @@
 "use client";
 
 import { Combobox } from "@/lib/ui/combobox";
-import { useContext } from "react";
-import { TimezoneContext } from "./timezone";
+import { useDashboardContext } from "./dashboard-context";
 import { Timezone } from "@/_data/timezones";
 
 export default function TimezoneCombobox({
@@ -12,7 +11,7 @@ export default function TimezoneCombobox({
   className?: string;
   zones: Timezone[];
 }) {
-  const { setTimezone, timezone } = useContext(TimezoneContext);
+  const { setTimezone, timezone } = useDashboardContext();
 
   return (
     <Combobox

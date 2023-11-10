@@ -3,9 +3,9 @@
 import { DataRange, GroupedData } from "@/_data/events";
 import { Badge } from "@/lib/ui/badge";
 import { Card, CardContent, CardTitle } from "@/lib/ui/card";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { BarChart, Bar, Tooltip, ResponsiveContainer } from "recharts";
-import { TimezoneContext } from "./timezone";
+import { useDashboardContext } from "./dashboard-context";
 import { Channels } from "@/lib/notify/channels";
 import { useNotificationListener } from "@/lib/notify/client";
 import { dateLabelByRange, queryClient } from "@/lib/utils";
@@ -18,21 +18,17 @@ type ProductPurchaseEventData = {
 };
 
 export default function ProductChart({
-  range,
   event,
   title,
   color,
 }: {
-  range: DataRange;
   event: string;
   title: string;
   color?: string;
 }) {
-  const { isPending, error, data, queryKey } = useGroupedEventQuery<ProductPurchaseEventData>(
-    event,
-    range,
-  );
-  const { timezone } = useContext(TimezoneContext);
+  const { timezone, range } = useDashboardContext();
+  const { isPending, error, data, queryKey } =
+    useGroupedEventQuery<ProductPurchaseEventData>(event, range);
 
   const revalidate = (_: string) =>
     queryClient.invalidateQueries({ queryKey: queryKey });

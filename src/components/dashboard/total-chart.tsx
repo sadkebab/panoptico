@@ -1,9 +1,8 @@
 "use client";
 
 import { DataRange, GroupedData } from "@/_data/events";
-import { useQuery } from "@tanstack/react-query";
-import { useContext, useEffect } from "react";
-import { TimezoneContext } from "./timezone";
+import { useEffect } from "react";
+import { useDashboardContext } from "./dashboard-context";
 import { dateLabelByRange, queryClient } from "@/lib/utils";
 import { useNotificationListener } from "@/lib/notify/client";
 import { Channels } from "@/lib/notify/channels";
@@ -19,19 +18,17 @@ type OrderEventData = {
 };
 
 export default function TotalChart({
-  range,
   event,
   title,
   color,
 }: {
-  range: DataRange;
   event: string;
   title: string;
   color?: string;
 }) {
+  const { timezone, range } = useDashboardContext();
   const { isPending, error, data, queryKey } =
     useGroupedEventQuery<OrderEventData>(event, range);
-  const { timezone } = useContext(TimezoneContext);
 
   const revalidate = (_: string) =>
     queryClient.invalidateQueries({ queryKey: queryKey });

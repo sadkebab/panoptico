@@ -1,6 +1,6 @@
 "use client";
 
-import { DataRange, EventList } from "@/_data/events";
+import { EventList } from "@/_data/events";
 import { useEventQuery } from "./use-event-query";
 import { queryClient } from "@/lib/utils";
 import { useNotificationListener } from "@/lib/notify/client";
@@ -16,18 +16,18 @@ import {
 } from "@/lib/ui/table";
 import { TableSkeleton } from "./table-skeleton";
 import { Card } from "@/lib/ui/card";
+import { useDashboardContext } from "./dashboard-context";
 
 export default function TopSearchTable({
   title,
   event,
-  range,
   term,
 }: {
   title: string;
   event: string;
-  range: DataRange;
   term: string;
 }) {
+  const { range } = useDashboardContext();
   const { isPending, error, data, queryKey } = useEventQuery<{
     text: string;
   }>(event, range);
