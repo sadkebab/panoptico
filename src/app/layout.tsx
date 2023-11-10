@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import { cookies } from "next/headers";
 import ThemeToogle from "@/components/theme-toggle";
 import { iconForTheme } from "@/components/icons";
+import NextTopLoader from 'nextjs-toploader';
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +34,7 @@ export default function RootLayout({
           "flex flex-col bg-background text-foreground",
         )}
       >
+        <NextTopLoader showSpinner={false} color="gray"/>
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-1 bg-muted">{children}</main>

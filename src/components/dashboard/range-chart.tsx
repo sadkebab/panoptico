@@ -58,7 +58,12 @@ export default function RangeChart({
         <div className="flex-1 h-44">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart width={200} height={100} data={parsedData}>
-              <Bar dataKey="value" fill={color || "var(--chart)"} radius={4} />
+              <Bar
+                dataKey="value"
+                fill={color || "var(--chart)"}
+                radius={4}
+                isAnimationActive={false}
+              />
               <Tooltip
                 cursor={{
                   fill: "hsl(var(--muted-foreground))",
