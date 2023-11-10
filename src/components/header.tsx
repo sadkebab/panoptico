@@ -8,6 +8,24 @@ import MobileMenu from "./mobile-menu";
 const saira = Saira({ subsets: ["latin"] });
 
 export default function Header({ className }: { className?: string }) {
+  const menuConfig = [
+    {
+      href: "/",
+      icon: <Home className="w-4 h-4" />,
+      title: "Home",
+    },
+    {
+      href: "/playground",
+      icon: <Gamepad2 className="w-4 h-4" />,
+      title: "Playground",
+    },
+    {
+      href: "/dashboard",
+      icon: <LayoutDashboard className="w-4 h-4" />,
+      title: "Dashboard",
+    },
+  ];
+
   return (
     <header
       className={cn(
@@ -55,25 +73,9 @@ export default function Header({ className }: { className?: string }) {
       </nav>
       <nav className="block sm:hidden">
         <MobileMenu
-          icon={
-            <div className="border border-border h-12 w-12 flex flex-row items-center justify-center p-2 gap-1 rounded active:shadow-inner active:scale-95">
-              <Menu className="w-5 h-5" />
-            </div>
-          }
-        >
-          <MenuItem href="/" icon={<Home className="w-4 h-4" />}>
-            Home
-          </MenuItem>
-          <MenuItem href="/playground" icon={<Gamepad2 className="w-4 h-4" />}>
-            Playground
-          </MenuItem>
-          <MenuItem
-            href="/dashboard"
-            icon={<LayoutDashboard className="w-4 h-4" />}
-          >
-            Dashboard
-          </MenuItem>
-        </MobileMenu>
+          icon={<Menu className="w-5 h-5" />}
+          config={menuConfig}
+        ></MobileMenu>
       </nav>
     </header>
   );
@@ -92,7 +94,7 @@ function MenuItem({
     <Link href={href}>
       <li
         className={cn(
-          "border border-border flex flex-row items-center p-2 gap-1 rounded active:shadow-inner active:scale-95",
+          "flex flex-row items-center p-2 gap-1 rounded active:shadow-inner active:scale-95",
           // currentUrl == href && "border-muted-foreground"
         )}
       >

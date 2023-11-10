@@ -49,7 +49,7 @@ export default function TotalChart({
     <Card className="">
       <CardTitle className="py-2 px-4 border-b border-border text-lg flex gap-1">
         <Badge className="text-white" style={{ backgroundColor: color }}>
-          {total}$
+          {total.toFixed(2)}$
         </Badge>
         {title}
       </CardTitle>
