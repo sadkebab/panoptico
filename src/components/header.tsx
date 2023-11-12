@@ -4,6 +4,7 @@ import { Gamepad2, Home, LayoutDashboard, Menu } from "lucide-react";
 import { Saira } from "next/font/google";
 import { cn } from "@/lib/utils";
 import MobileMenu from "./mobile-menu";
+import MenuItem from "./menu-item";
 
 const saira = Saira({ subsets: ["latin"] });
 
@@ -78,29 +79,5 @@ export default function Header({ className }: { className?: string }) {
         ></MobileMenu>
       </nav>
     </header>
-  );
-}
-
-function MenuItem({
-  children,
-  icon,
-  href,
-}: {
-  children?: React.ReactNode;
-  icon: React.ReactNode;
-  href: string;
-}) {
-  return (
-    <Link href={href}>
-      <li
-        className={cn(
-          "flex flex-row items-center p-2 gap-1 rounded active:shadow-inner active:scale-95",
-          // currentUrl == href && "border-muted-foreground"
-        )}
-      >
-        <div>{icon}</div>
-        {children && <p>{children}</p>}
-      </li>
-    </Link>
   );
 }
