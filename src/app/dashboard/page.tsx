@@ -8,8 +8,6 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
 import { RangeItem } from "@/components/dashboard/range-item";
-import NextTopLoader from "nextjs-toploader";
-import { createPortal } from "react-dom";
 
 const VisitChart = dynamic(() => import("@/components/dashboard/range-chart"), {
   loading: () => <ChartSkeleton title="Visit" color="#9333ea" />,
