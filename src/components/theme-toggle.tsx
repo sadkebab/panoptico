@@ -34,7 +34,7 @@ export default function ThemeToogle({ defaultIcon }: { defaultIcon: ReactNode })
 
   return <div className={cn(
     "fixed bottom-3 right-3 flex flex-row items-center justify-center shadow-md",
-    "p-2 rounded-full bg-background",
+    "p-2 rounded-full bg-background z-50",
     "active:shadow-inner active:scale-95"
   )}>
     <button className="w-6 h-6" onClick={() => toggle()}>
