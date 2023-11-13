@@ -18,7 +18,7 @@ export default function MenuItem({
       <li
         className={cn(
           "flex flex-row items-center p-2 gap-1 rounded text-muted-foreground",
-          pathname == href && "text-black",
+          pathname == href && "text-foreground",
         )}
       >
         <div>{icon}</div>

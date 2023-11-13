@@ -5,10 +5,12 @@ import { Saira } from "next/font/google";
 import { cn } from "@/lib/utils";
 import MobileMenu from "./mobile-menu";
 import MenuItem from "./menu-item";
+import { headers } from "next/headers";
 
 const saira = Saira({ subsets: ["latin"] });
 
 export default function Header({ className }: { className?: string }) {
+
   const menuConfig = [
     {
       href: "/",
